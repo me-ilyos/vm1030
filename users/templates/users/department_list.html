@@ -1,0 +1,17 @@
+{% extends 'base_layout.html' %}
+
+{% block Title %}
+    Kafedralar Ro'yxati
+{% endblock %}
+
+{% block body %}
+<h3>Kafedralar</h3>
+
+<ul>
+    {% for department in departments %}
+        <li>
+            {{ department.name }} (Code: {{ department.code }}) {{department.department_admin.first_name}}
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

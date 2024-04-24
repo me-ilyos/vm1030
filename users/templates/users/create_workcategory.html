@@ -1,0 +1,90 @@
+{% extends "base_layout.html" %}
+
+{% block title %}
+Talablar Yaratish
+{% endblock %}
+
+{% block style %}
+<style>
+    #requirement-formset div {
+        border: 1px solid #ccc;
+        margin-bottom: 10px; 
+        padding: 10px; 
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+
+<h1>Create Work Category and Requirements</h1>
+
+<form method="post">
+    {% csrf_token %} 
+
+    <h2>Work Category</h2>
+    {{ category_form.as_p }}
+
+
+    <h2>Requirements</h2>
+    <div id="requirement-formset"> 
+        {{ requirement_formset.management_form }}
+        {% for form in requirement_formset %}
+            <div>
+                {{ form.as_p }}
+                <button type="button" class="remove-requirement">Remove</button>
+            </div>
+        {% endfor %}
+    </div>
+
+    <button id="add-requirement" type="button">Add Requirement</button>
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}
+
+{% block script %}
+<script>
+    $(document).ready(function() {
+        function updateFormsetIndexes(formset, prefix) {
+            formset.find('input, select, textarea').each(function() {
+                var oldName = $(this).attr('name');
+                var newName = oldName.replace(/-\d+-/g, '-__prefix__-'); 
+                var oldId = $(this).attr('id');
+                var newId = oldId.replace(/-\d+-/g, '-__prefix__-'); 
+                $(this).attr('name', newName).attr('id', newId);
+            });
+        }
+
+        function addNewForm(formset, prefix) {
+            var newForm = formset.find('div:last').clone(true).show(); 
+            updateFormsetIndexes(newForm, prefix); 
+            formset.append(newForm);
+            updateFormsetIndexes(formset, prefix); 
+        }
+
+        function removeForm(button) {
+            $(button).closest('div').remove();
+            $('#requirement-formset').children().each(function(i) {
+                updateFormsetIndexes($(this), prefix);
+            });
+        }
+
+        $('#add-requirement').click(function() {
+            var formset = $('#requirement-formset');
+            var prefix = formset.find('[id$="TOTAL_FORMS"]').attr('name').split('-')[1]; 
+            addNewForm(formset, prefix);
+
+            updateFormsetIndexes(formset, prefix); 
+
+            formset.append(newForm);
+            newForm.hide().fadeIn(); 
+        }); 
+
+        $('.remove-requirement').click(function() {
+            var formContainer = $(this).closest('div');
+            formContainer.fadeOut(function() { 
+                formContainer.remove();
+            });
+        });
+    });
+</script>
+{% endblock %}

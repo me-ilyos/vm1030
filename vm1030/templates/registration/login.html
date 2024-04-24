@@ -1,0 +1,14 @@
+{% extends "base_layout.html" %}
+
+{% block Title %}
+    VM1030 ga Kirish
+{% endblock %}
+
+{% block body %}
+<h1>Login</h1>
+<form method="POST">
+    {% csrf_token %} 
+    {{ form.as_p }} 
+    <button type="submit">Kirish</button>
+</form>
+{% endblock %}

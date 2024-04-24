@@ -1,0 +1,14 @@
+{% extends "base_layout.html" %}
+
+{% block Title %}
+    Kafedra Yaratish
+{% endblock %}
+
+{% block body %}
+    <form action="{% url 'users:create_department' %}" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+
+        <button type="submit" value="Yaratish"></button>
+    </form>
+{% endblock %}
