@@ -1,4 +1,6 @@
 from django import forms
+from django.forms.models import inlineformset_factory
+
 from .models import UniversityUser, Department, WorkCategory, Requirement
 
 
@@ -42,3 +44,15 @@ class RequirementCreationForm(forms.ModelForm):
     class Meta:
         model = Requirement
         fields = ["work_category", "name", "description", "max_percentage_increase"]
+
+
+class WorkCategoryEditForm(forms.ModelForm):
+    class Meta:
+        model = WorkCategory
+        fields = ['name', 'description', 'max_percentage']
+
+
+RequirementEditFormset = inlineformset_factory(
+    WorkCategory, 
+    Requirement, 
+    fields=['name', 'description', 'max_percentage_increase'], extra=6)    

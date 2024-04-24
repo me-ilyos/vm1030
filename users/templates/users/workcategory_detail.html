@@ -1,0 +1,21 @@
+{% extends 'base_layout.html' %}
+
+{% block Title %}
+{{work_category.name}}
+{% endblock %}
+
+{% block body %}
+<h1>{{ work_category.name }}</h1>
+
+    <p><strong>Description:</strong> {{ work_category.description }}</p>
+    <p><strong>Maximum Percentage Increase:</strong> {{ work_category.max_percentage }}%</p>
+
+    <h2>Requirements</h2>
+    <ul>
+        {% for requirement in work_category.requirements.all %}
+            <li>{{ requirement.name }} - {{requirement.max_percentage_increase}}%</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'users:workcategory_edit' work_category.pk %}">O'zgartirish</a>
+{% endblock %}

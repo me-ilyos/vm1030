@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Work Category</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+
+    </script>
+    <style>
+        #requirement-formset div {
+            border: 1px solid #ccc;
+            margin-bottom: 10px; 
+            padding: 10px; 
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Edit Work Category</h1>
+
+    <form method="post">
+        {% csrf_token %} 
+        {{ form.as_p }}
+
+        <h2>Requirements</h2>
+        <div id="requirement-formset"> 
+            {{ requirement_formset.management_form }}
+            {% for form in requirement_formset %}
+                <div>
+                    {{ form.as_p }}
+                    <button type="button" class="remove-requirement">Remove</button>
+                </div>
+            {% endfor %}
+        </div>
+
+        <button id="add-requirement">Add Requirement</button>
+        <button type="submit">Save Changes</button>
+    </form>
+
+</body>
+</html>

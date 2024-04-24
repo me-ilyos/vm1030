@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.hashers import make_password
+from django.views.generic import UpdateView
+from django.urls import reverse_lazy
 from django.forms.models import inlineformset_factory
 
 from .models import (
@@ -15,6 +17,8 @@ from .forms import (
     DepartmentUserCreationForm,
     WorkCategoryCreationForm,
     RequirementCreationForm,
+    WorkCategoryEditForm, 
+    RequirementEditFormset
 )
 
 
@@ -112,3 +116,41 @@ def create_work_category(request):
         "users/create_workcategory.html",
         {"category_form": category_form, "requirement_formset": requirement_formset},
     )
+
+
+def get_workcategories(request):
+    work_categories = WorkCategory.objects.prefetch_related('requirements')
+    context = {'work_categories': work_categories}
+    return render(request, 'users/get_workcategories.html', context)
+
+
+def get_workcategory_detail(request, pk):
+    work_category = get_object_or_404(WorkCategory, pk=pk)
+    context = {'work_category': work_category}
+
+    return render(request, 'users/workcategory_detail.html', context)
+
+
+class WorkCategoryEditView(UpdateView):
+    model = WorkCategory
+    template_name = 'users/workcategory_edit.html'
+    form_class = WorkCategoryEditForm
+    success_url = reverse_lazy('users:work_categories')
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        if self.request.POST:
+            ctx['requirement_formset'] = RequirementFormset(self.request.POST, instance=self.object)
+        else:
+            ctx['requirement_formset'] = RequirementFormset(instance=self.object)
+        return ctx
+
+    def form_valid(self, form):
+        ctx = self.get_context_data()
+        formset = ctx['requirement_formset']
+        if form.is_valid() and formset.is_valid():
+            self.object = form.save()
+            formset.save()
+            return super().form_valid(form)
+        else:
+            return self.render_to_response(self.get_context_data(form=form))

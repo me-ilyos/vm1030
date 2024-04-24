@@ -1,0 +1,28 @@
+{% extends 'base_layout.html' %}
+
+{% block Title %}
+Talablar Ro'yxati
+{% endblock %}
+
+{% block body %}
+<h3 style="text-align: center;">Talablar</h3>
+
+{% for category in work_categories %}
+    <h3>{{ category.name }} 
+        <a href="{% url 'users:workcategory_detail' category.pk %}">
+            Toliq ko'rish
+        </a>
+    </h3>
+
+    <p>{{ category.description }}</p>
+
+    <ul>
+        {% for requirement in category.requirements.all %}
+            <li>
+                {{ requirement.name }} - 
+                Maximum foizi: {{ requirement.max_percentage_increase }}%
+            </li>
+        {% endfor %}
+    </ul>
+{% endfor %}
+{% endblock %}
