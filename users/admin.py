@@ -8,6 +8,7 @@ from .models import (
     WorkCategory,
     ProfessorWorkSubmission,
     Requirement,
+    FileSubmission
 )
 
 admin.site.register(DepartmentAdminProfile)
@@ -18,3 +19,4 @@ admin.site.register(SuperAdminProfile)
 admin.site.register(WorkCategory)
 admin.site.register(ProfessorWorkSubmission)
 admin.site.register(Requirement)
+admin.site.register(FileSubmission)

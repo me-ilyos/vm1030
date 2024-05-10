@@ -1,0 +1,171 @@
+{% extends "base_layout.html" %}
+{% load static %}
+
+{% block title %}
+    Super Admin Paneli
+{% endblock %}
+
+{% block body %}
+<div class="row mb-8">
+    <div class="col-md-12">
+       <!-- card -->
+       <div
+          class="card bg-light border-0 rounded-4"
+          style="background-image: url(../assets/img/librarywallper.jpg); background-repeat: no-repeat; background-size: cover; background-position: right">
+          <div class="card-body p-lg-12">
+             <h1>NamMQI 10 / 30 tizimiga hush kelibsiz</h1>
+             <p>10 / 30 hujjatlari bilan ishlashni osonlashtirish</p>
+          </div>
+       </div>
+    </div>
+ </div>
+ <!-- table -->
+ <div class="table-responsive-xl mb-6 mb-lg-0">
+    <div class="row flex-nowrap pb-3 pb-lg-0">
+       <div class="col-lg-4 col-12 mb-6">
+          <!-- card -->
+          <div class="card h-100 card-lg">
+             <!-- card body -->
+             <div class="card-body p-6">
+                <!-- heading -->
+                <div class="d-flex justify-content-between align-items-center mb-6">
+                   <div>
+                      <h4 class="mb-0 fs-5">Qabul qilinganlar hujjatlar</h4>
+                   </div>
+                   <div class="icon-shape icon-md bg-light-success text-dark-success rounded-circle">
+                      <i class="bi bi-file-earmark-check fs-5"></i>
+                   </div>
+                </div>
+                <!-- project number -->
+                <div class="lh-1">
+                   <h1 class="mb-2 fw-bold fs-2">4765</h1>
+                   <span>Umumiy</span>
+                </div>
+             </div>
+          </div>
+       </div>
+       <div class="col-lg-4 col-12 mb-6">
+          <!-- card -->
+          <div class="card h-100 card-lg">
+             <!-- card body -->
+             <div class="card-body p-6">
+                <!-- heading -->
+                <div class="d-flex justify-content-between align-items-center mb-6">
+                   <div>
+                      <h4 class="mb-0 fs-5">Rad etilgan hujjatlar</h4>
+                   </div>
+                   <div class="icon-shape icon-md bg-light-danger text-dark-danger rounded-circle">
+                      <i class="bi bi-file-earmark-excel fs-5"></i>
+                   </div>
+                </div>
+                <!-- project number -->
+                <div class="lh-1">
+                   <h1 class="mb-2 fw-bold fs-2">42,339</h1>
+                   <span>
+                      <span class="text-dark me-1">35+</span>
+                      Yangi hujjatlar
+                   </span>
+                </div>
+             </div>
+          </div>
+       </div>
+       <div class="col-lg-4 col-12 mb-6">
+          <!-- card -->
+          <div class="card h-100 card-lg">
+             <!-- card body -->
+             <div class="card-body p-6">
+                <!-- heading -->
+                <div class="d-flex justify-content-between align-items-center mb-6">
+                   <div>
+                      <h4 class="mb-0 fs-5">Tekshiruvdagi hujjatlar</h4>
+                   </div>
+                   <div class="icon-shape icon-md bg-light-warning text-dark-warning rounded-circle">
+                      <i class="bi bi-clock fs-5"></i>
+                   </div>
+                </div>
+                <!-- project number -->
+                <div class="lh-1">
+                   <h1 class="mb-2 fw-bold fs-2">354</h1>
+                   <span>
+                      <span class="text-dark me-1">10+</span>
+                      yangi oyda
+                   </span>
+                </div>
+             </div>
+          </div>
+       </div>
+       
+    </div>
+ </div>
+
+ <!-- row -->
+ <div class="row">
+    <div class="col-xl-8 col-lg-6 col-md-12 col-12 mb-6">
+       <!-- card -->
+       <div class="card h-100 card-lg">
+          <div class="card-body p-6">
+             <!-- heading -->
+             <div class="d-flex justify-content-between">
+                <div>
+                   <h3 class="mb-1 fs-5">Umumiy statistika</h3>
+                </div>
+             </div>
+             <!-- chart -->
+             <div id="revenueChart" class="mt-6"></div>
+          </div>
+       </div>
+    </div>
+    <div class="col-xl-4 col-lg-6 col-12 mb-6">
+       <!-- card -->
+       <div class="card h-100 card-lg">
+          <!-- card body -->
+          <div class="card-body p-6">
+             <!-- heading -->
+             <h3 class="mb-0 fs-5">Foydalanuvchilar stastistikasi</h3>
+             <div id="totalSale" class="mt-6 d-flex justify-content-center"></div>
+             <div class="mt-4">
+                <!-- list -->
+                <ul class="list-unstyled mb-0">
+                   <li class="mb-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="currentColor" class="bi bi-circle-fill text-primary" viewBox="0 0 16 16">
+                         <circle cx="8" cy="8" r="8" />
+                      </svg>
+                      <span class="ms-1">
+                         <span class="text-dark">Shippings $32.98</span>
+                         (2%)
+                      </span>
+                   </li>
+                   <li class="mb-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="currentColor" class="bi bi-circle-fill text-warning" viewBox="0 0 16 16">
+                         <circle cx="8" cy="8" r="8" />
+                      </svg>
+                      <span class="ms-1">
+                         <span class="text-dark">Refunds $11</span>
+                         (11%)
+                      </span>
+                   </li>
+                   <li class="mb-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="currentColor" class="bi bi-circle-fill text-danger" viewBox="0 0 16 16">
+                         <circle cx="8" cy="8" r="8" />
+                      </svg>
+                      <span class="ms-1">
+                         <span class="text-dark">Order $14.87</span>
+                         (1%)
+                      </span>
+                   </li>
+                   <li>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="currentColor" class="bi bi-circle-fill text-info" viewBox="0 0 16 16">
+                         <circle cx="8" cy="8" r="8" />
+                      </svg>
+                      <span class="ms-1">
+                         <span class="text-dark">Income 3,271</span>
+                         (86%)
+                      </span>
+                   </li>
+                </ul>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+{% endblock %}

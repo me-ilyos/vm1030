@@ -15,76 +15,55 @@ Talablar Yaratish
 {% endblock %}
 
 {% block body %}
-
-<h1>Create Work Category and Requirements</h1>
-
-<form method="post">
-    {% csrf_token %} 
-
-    <h2>Work Category</h2>
-    {{ category_form.as_p }}
-
-
-    <h2>Requirements</h2>
-    <div id="requirement-formset"> 
-        {{ requirement_formset.management_form }}
-        {% for form in requirement_formset %}
-            <div>
-                {{ form.as_p }}
-                <button type="button" class="remove-requirement">Remove</button>
-            </div>
-        {% endfor %}
+<div class="container">
+    <!-- row -->
+    <div class="row mb-8">
+       <div class="col-md-12">
+          <div class="d-md-flex justify-content-between align-items-center">
+             <!-- page header -->
+             <div>
+                <h2>Talablar Yaratish</h2>
+                <!-- breacrumb -->
+             </div>
+          </div>
+       </div>
     </div>
-
-    <button id="add-requirement" type="button">Add Requirement</button>
-    <button type="submit">Submit</button>
-</form>
-{% endblock %}
-
-{% block script %}
-<script>
-    $(document).ready(function() {
-        function updateFormsetIndexes(formset, prefix) {
-            formset.find('input, select, textarea').each(function() {
-                var oldName = $(this).attr('name');
-                var newName = oldName.replace(/-\d+-/g, '-__prefix__-'); 
-                var oldId = $(this).attr('id');
-                var newId = oldId.replace(/-\d+-/g, '-__prefix__-'); 
-                $(this).attr('name', newName).attr('id', newId);
-            });
-        }
-
-        function addNewForm(formset, prefix) {
-            var newForm = formset.find('div:last').clone(true).show(); 
-            updateFormsetIndexes(newForm, prefix); 
-            formset.append(newForm);
-            updateFormsetIndexes(formset, prefix); 
-        }
-
-        function removeForm(button) {
-            $(button).closest('div').remove();
-            $('#requirement-formset').children().each(function(i) {
-                updateFormsetIndexes($(this), prefix);
-            });
-        }
-
-        $('#add-requirement').click(function() {
-            var formset = $('#requirement-formset');
-            var prefix = formset.find('[id$="TOTAL_FORMS"]').attr('name').split('-')[1]; 
-            addNewForm(formset, prefix);
-
-            updateFormsetIndexes(formset, prefix); 
-
-            formset.append(newForm);
-            newForm.hide().fadeIn(); 
-        }); 
-
-        $('.remove-requirement').click(function() {
-            var formContainer = $(this).closest('div');
-            formContainer.fadeOut(function() { 
-                formContainer.remove();
-            });
-        });
-    });
-</script>
+    <!-- row -->
+    <div class="row">
+       <div class="col-lg-10 col-12">
+          <!-- card -->
+          <div class="card mb-6 card-lg">
+             <!-- card body -->
+             <div class="card-body p-6">
+                <h4 class="mb-4 h5">Talablar</h4>
+                <div class="row">
+                   <!-- input -->
+                   <form method="post">
+                    {% csrf_token %} 
+                
+                    <h2>Talab Turi</h2>
+                    {{ category_form.as_p }}
+                
+                
+                    <h2>Talab punktlari</h2>
+                    <div id="requirement-formset"> 
+                        {{ requirement_formset.management_form }}
+                        {% for form in requirement_formset %}
+                            <div>
+                                {{ form.as_p }}
+                                <button type="button" class="remove-requirement">Remove</button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                
+                    <button id="add-requirement" type="button">Add Requirement</button>
+                    <button type="submit">Yaratish</button>
+                </form>
+                </div>
+             </div>
+            
+          </div>
+       </div>
+    </div>
+</div>
 {% endblock %}

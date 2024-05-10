@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Professor Submission</title>
+</head>
+<body>
+    <h1>Submit Your Work</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% for category in categories %}
+            <h2>{{ category.name }}</h2>
+            <p>{{ category.description }}</p>
+
+            {% for requirement in category.requirements.all %}
+                <div class="requirement">
+                    <label for="requirement_{{ requirement.id }}">{{ requirement.name }}</label>
+                    <input type="file" id="requirement_{{ requirement.id }}" name="requirement_{{ requirement.id }}" required>
+                </div>
+            {% endfor %}
+
+        {% endfor %}
+
+        <button type="submit">Submit</button>
+    </form>
+
+</body>
+</html>

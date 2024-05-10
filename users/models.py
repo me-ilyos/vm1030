@@ -1,7 +1,10 @@
-from django.db import models
-from django.contrib.auth.models import AbstractUser
 from django.conf import settings
+from django.contrib.auth.models import AbstractUser
 from django.core.files.storage import FileSystemStorage
+from django.db import models
+from django.utils import timezone
+
+from .utils import generate_unique_filename, submission_file_path
 
 
 class UniversityUser(AbstractUser):
@@ -92,9 +95,6 @@ class Requirement(models.Model):
         return self.name
 
 
-fs = FileSystemStorage(location="uploads/professor_submissions")
-
-
 class ProfessorWorkSubmission(models.Model):
     STATUS_CHOICES = (
         ("PR", "Processing"),
@@ -107,17 +107,23 @@ class ProfessorWorkSubmission(models.Model):
         on_delete=models.CASCADE,
         related_name="requirement_fulfillments",
     )
-    work_category = models.ForeignKey(WorkCategory, on_delete=models.CASCADE)
+    work_category = models.ForeignKey(WorkCategory, on_delete=models.CASCADE, null=True, blank=True)
     requirements = models.ManyToManyField(Requirement, related_name="fulfillments")
     submission_description = models.TextField(blank=True, null=True)
     action_description = models.TextField(blank=True, null=True)
     status = models.CharField(max_length=2, choices=STATUS_CHOICES, default="PR")
-    proof_file = models.FileField(
-        storage=fs, upload_to="professor_submissions", blank=True
-    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return (
             f"{self.professor.first_name} {self.professor.last_name}"
-            + f"{self.work_category.name}"
         )
+    
+
+class FileSubmission(models.Model):
+    proof_file = models.FileField(upload_to=submission_file_path)
+    requirement = models.ForeignKey(Requirement, on_delete=models.CASCADE)
+    work_submission = models.ForeignKey(ProfessorWorkSubmission, on_delete=models.CASCADE, related_name='file_submissions')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

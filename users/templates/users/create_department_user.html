@@ -5,10 +5,175 @@
 {% endblock %}
 
 {% block body %}
-    <form action="{% url 'users:create_department_user' %}" method="POST">
+<div class="container">
+    <!-- row -->
+    <div class="row mb-8">
+       <div class="col-md-12">
+          <div class="d-md-flex justify-content-between align-items-center">
+             <!-- page header -->
+             <div>
+                <h2>Kafedra qo'shish</h2>
+                <!-- breacrumb -->
+             </div>
+          </div>
+       </div>
+    </div>
+    <!-- row -->
+    <div class="row">
+       <div class="col-lg-10 col-12">
+          <!-- card -->
+          <div class="card mb-6 card-lg">
+             <!-- card body -->
+             <div class="card-body p-6">
+                <h4 class="mb-4 h5">Kafedra mudiri malumotlari</h4>
+                <div class="row">
+                   <!-- input -->
+
+                  <form class="needs-validation" novalidate action="{% url 'users:create_department_user' %}" method="POST">
+                    {% csrf_token %}
+                     <div class="row g-3">
+                        <!-- col -->
+                        <div class="mb-3 col-lg-6">
+                            <label class="form-label">Login</label>
+                            <input name="username" type="text" class="form-control" placeholder="Login kiriting" required maxlength="200"/>
+                            <div class="invalid-feedback">Login yozing</div>
+                       </div>
+
+                       <div class="mb-3 col-lg-6">
+                        <label class="form-label">Kirish uchun parol</label>
+                        <input name="password" type="password" class="form-control" placeholder="Parolni yozing" required />
+                        <div class="invalid-feedback">Parolni kiriting</div>
+                        </div>
+
+                        <div class="mb-3 col-lg-6">
+                            <label class="form-label">Ism</label>
+                            <input name="first_name" type="text" class="form-control" placeholder="Ism" required maxlength="200"/>
+                            <div class="invalid-feedback">Ism yozing</div>
+                       </div>
+                        <div class="mb-3 col-lg-6">
+                            <label class="form-label">Familiya</label>
+                            <input name="last_name" type="text" class="form-control" placeholder="Familya" required maxlength="200"/>
+                            <div class="invalid-feedback">Familiyani yozing</div>
+                       </div>
+
+                       <div class="mb-3 col-lg-6">
+                            <label class="form-label">Telefon raqam</label>
+                            <input name="phone_number" type="text" class="form-control" placeholder="Telefon yozing" required maxlength="200"/>
+                            <div class="invalid-feedback">Telefon yozing</div>
+                      </div>
+
+                      <div class="mb-3 col-lg-6">
+                            <label class="form-label">Kafedra</label>
+                            {{form.department}}
+                     </div>
+
+                     <div class="mb-3 col-lg-6">
+                        <label class="form-label">Kafedra</label>
+                        {{form.birthdate}}
+                     </div>
+                        <!-- btn -->
+                        <div class="col-lg-12"><button type="submit" class="btn btn-primary">Qo'shish</button></div>
+                     </div>
+                  </form>
+                 
+                </div>
+
+                
+             </div>
+            
+          </div>
+       </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-12 col-12 mb-5">
+            <div class="card h-100 card-lg">
+                <div class="p-6">
+                    <div class="row justify-content-between">
+                        <div class="col-md-4 col-12">
+                            <form class="d-flex" role="search">
+                                <input class="form-control" type="search" placeholder="Foydalanuvchilarni qidirish" aria-label="Search" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-centered table-hover table-borderless mb-0 table-with-checkbox text-nowrap">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="checkAll" />
+                                            <label class="form-check-label" for="checkAll"></label>
+                                        </div>
+                                    </th>
+                                    <th>O'qituvchi</th>
+                                    <th>Fakulteti</th>
+                                    <th>Kafedrasi</th>
+                                    <th>Login</th>
+                                    <th>Parol</th>
+                                    <th>O'chirish</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="customerOne" />
+                                            <label class="form-check-label" for="customerOne"></label>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <span>Toshmat Aliyev</span>
+                                    </td>
+
+                                    <td>Qurilish</td>
+
+                                    <td>QMBCh</td>
+
+                                    <td>
+                                        <span>Toshmad</span>
+                                    </td>
+
+                                    <td>
+                                        <span>123456</span>
+                                    </td>
+
+                                    <td>
+                                        <button class="btn btn-primary">
+                                            <i class="bi bi-trash me-3"></i>
+                                            O'chirish
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="border-top d-md-flex justify-content-between align-items-center p-6">
+                        
+                        <nav class="mt-2 mt-md-0">
+                            <ul class="pagination mb-0">
+                                <li class="page-item disabled"><a class="page-link" href="#!">Oldingi</a></li>
+                                <li class="page-item"><a class="page-link active" href="#!">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#!">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#!">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#!">Keyingi</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- <form action="{% url 'users:create_department_user' %}" method="POST">
         {% csrf_token %}
         {{form.as_p}}
 
         <button type="submit" value="Yaratish">Yaratish</button>
-    </form>
+    </form> -->
 {% endblock %}

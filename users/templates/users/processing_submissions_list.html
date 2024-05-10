@@ -1,0 +1,146 @@
+{% extends "base_layout.html" %}
+{% load static %}
+
+{% block title %}
+    Kafedragan Kelgan Arizalar
+{% endblock %}
+
+{% block body %}
+<div class="row mb-8">
+    <div class="col-md-12">
+       <!-- page header -->
+       <div class="d-md-flex justify-content-between align-items-center">
+          <div>
+             <h2>10/30 hujjatlar jadvali</h2>
+             <!-- breacrumb -->
+             
+          </div>
+          <!-- button -->
+       </div>
+    </div>
+ </div>
+ <!-- row -->
+ <div class="row">
+    <div class="col-xl-12 col-12 mb-5">
+       <!-- card -->
+       <div class="card h-100 card-lg">
+          <div class="px-6 py-6">
+             <div class="row justify-content-between">
+                <!-- form -->
+                <div class="col-lg-4 col-md-6 col-12 mb-2 mb-lg-0">
+                   <form class="d-flex" role="search">
+                      <input class="form-control" type="search" placeholder="Hujjatlarni qidirish" aria-label="Search" />
+                   </form>
+                </div>
+             </div>
+          </div>
+          <!-- card body -->
+          <div class="card-body p-0">
+             <!-- table -->
+             <div class="table-responsive">
+                <table class="table table-centered table-hover text-nowrap table-borderless mb-0 table-with-checkbox">
+                   <thead class="bg-light">
+                      <tr>
+                         <th>
+                            <div class="form-check">
+                               <input class="form-check-input" type="checkbox" value="" id="checkAll" />
+                               <label class="form-check-label" for="checkAll"></label>
+                            </div>
+                         </th>
+                         <th>Sana</th>
+                         <th>O'qituvchi</th>
+                         <th>Fakultet</th>
+                         <th>Talab turi</th>
+                         <th>Talablar</th>
+                         <th>Yuklangan Hujjatlar</th>
+                         <th>Tasdiqlash</th>
+                      </tr>
+                   </thead>
+                   <tbody>
+                     {% for submission in submissions %}
+                         <tr>
+                             <td>
+                             <div class="form-check">
+                                 <input class="form-check-input" type="checkbox" value="" id="productOne" />
+                                 <label class="form-check-label" for="productOne"></label>
+                             </div>
+                             </td>
+                             <td>
+                                 <span>{{ submission.created_at|date:"Y-m-d H:i" }}</span>
+                             </td>
+                             <td>
+                                 <span>{{ submission.professor.first_name }} {{ submission.professor.last_name }}</span>
+                             </td>
+                             <td>
+                                 <span>{{ submission.professor.regular_user_profile.department }}</span>
+                             </td>
+                             <td>
+                                 <span>{{ submission.work_category }}</span>
+                             </td>
+                             <td>
+                                 <ul>
+                                     {% for requirement in submission.requirements.all %}
+                                         <li>{{ requirement }}</li>
+                                     {% endfor %}
+                                 </ul>
+                             </td>
+                         
+                             <td><a href="{% url 'users:download_submission' pk=submission.pk %}">Yuklangan hujjat</a></td>
+                             <td>
+                             <div class="btn-group">
+                                     <a href="{% url 'users:approve_submission' pk=submission.pk %}" class="btn btn-primary">Qabul</a>
+                                     <a href="{% url 'users:decline_submission' pk=submission.pk %}" class="btn btn-danger">Bekor</a>
+                             </div>
+                             </td>
+                         </tr>
+                     {% endfor %}
+                   </tbody>
+                </table>
+             </div>
+          </div>
+          <div class="border-top d-md-flex justify-content-between align-items-center px-6 py-6">
+             <nav class="mt-2 mt-md-0">
+                <ul class="pagination mb-0">
+                   <li class="page-item disabled"><a class="page-link" href="#!">Oldingi</a></li>
+                   <li class="page-item"><a class="page-link active" href="#!">1</a></li>
+                   <li class="page-item"><a class="page-link" href="#!">2</a></li>
+                   <li class="page-item"><a class="page-link" href="#!">3</a></li>
+                   <li class="page-item"><a class="page-link" href="#!">Keyingisi</a></li>
+                </ul>
+             </nav>
+          </div>
+       </div>
+    </div>
+ </div>
+
+ <!-- Habarni bekor qilgandagi chiquvchi modal -->
+ <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelOne" aria-hidden="true">
+     <div class="modal-dialog" role="document">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h5 class="modal-title" id="exampleModalLabelOne">Bekor qilingandagi sababini yozish</h5>
+                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                 </button>
+             </div>
+             <div class="modal-body">
+
+                 <form class="needs-validation" novalidate>
+                     <div class="row g-3">
+                         <div class="mb-3">
+                             <label for="message-text" class="col-form-label">Bekor qilish sababi:</label>
+                             <textarea class="form-control" id="message-text" required></textarea>
+                             <div class="invalid-feedback">Bekor qilish sababini yozing</div>
+                         </div>
+                     </div>
+
+                     <!-- btn -->
+                     <div class="modal-footer">
+                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
+                         <button type="submit" class="btn btn-primary">Xabarni jo'natish</button>
+                     </div>
+                 </form>
+             </div>
+         </div>
+     </div>
+ </div> 
+{% endblock %}

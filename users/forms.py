@@ -55,4 +55,4 @@ class WorkCategoryEditForm(forms.ModelForm):
 RequirementEditFormset = inlineformset_factory(
     WorkCategory, 
     Requirement, 
-    fields=['name', 'description', 'max_percentage_increase'], extra=6)    
+    fields=['name', 'description', 'max_percentage_increase'], extra=6)

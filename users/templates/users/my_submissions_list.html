@@ -1,0 +1,149 @@
+{% extends "base_layout.html" %}
+
+{% load static %}
+
+{% block title %}
+    O'qituvchilar barcha sorovlari
+{% endblock %}
+
+{% block body %}
+<div class="row mb-8">
+    <div class="col-md-12">
+       <!-- page header -->
+       <div class="d-md-flex justify-content-between align-items-center">
+          <div>
+             <h2>10/30 hujjatlar jadvali</h2>
+             <!-- breacrumb -->
+             
+          </div>
+          <!-- button -->
+       </div>
+    </div>
+ </div>
+ <!-- row -->
+ <div class="row">
+    <div class="col-xl-12 col-12 mb-5">
+       <!-- card -->
+       <div class="card h-100 card-lg">
+          <div class="px-6 py-6">
+             <div class="row justify-content-between">
+                <!-- form -->
+                <div class="col-lg-4 col-md-6 col-12 mb-2 mb-lg-0">
+                   <form class="d-flex" role="search">
+                      <input class="form-control" type="search" placeholder="Hujjatlarni qidirish" aria-label="Search" />
+                   </form>
+                </div>
+             </div>
+          </div>
+          <!-- card body -->
+          <div class="card-body p-0">
+             <!-- table -->
+             <div class="table-responsive">
+                <table class="table table-centered table-hover text-nowrap table-borderless mb-0 table-with-checkbox">
+                   <thead class="bg-light">
+                      <tr>
+                         <th>
+                            <div class="form-check">
+                               <input class="form-check-input" type="checkbox" value="" id="checkAll" />
+                               <label class="form-check-label" for="checkAll"></label>
+                            </div>
+                         </th>
+                         <th>Sana</th>
+                         <th>O'qituvchi</th>
+                         <th>Fakultet</th>
+                         <th>Talab turi</th>
+                         <th>Talablar</th>
+                         <th>Yuklangan Hujjatlar</th>
+                         <th>Holati</th>
+                      </tr>
+                   </thead>
+                   <tbody>
+                     {% for submission in submissions %}
+                         <tr>
+                             <td>
+                             <div class="form-check">
+                                 <input class="form-check-input" type="checkbox" value="" id="productOne" />
+                                 <label class="form-check-label" for="productOne"></label>
+                             </div>
+                             </td>
+                             <td>
+                                 <span>{{ submission.created_at|date:"Y-m-d H:i" }}</span>
+                             </td>
+                             <td>
+                                 <span>{{ submission.professor.first_name }} {{ submission.professor.last_name }}</span>
+                             </td>
+                             <td>
+                                 <span>{{ submission.professor.regular_user_profile.department }}</span>
+                             </td>
+                             <td>
+                                 <span>{{ submission.work_category }}</span>
+                             </td>
+                             <td>
+                                 <ul>
+                                     {% for requirement in submission.requirements.all %}
+                                         <li>{{ requirement }}</li>
+                                     {% endfor %}
+                                 </ul>
+                             </td>
+                         
+                             <td><a href="{% url 'users:download_submission' pk=submission.pk %}">Yuklangan hujjat</a></td>
+                             <td>
+                                <span>{{ submission.get_status_display }}</span>
+                             </td>
+                         </tr>
+                     {% endfor %}
+                   </tbody>
+                </table>
+             </div>
+          </div>
+          <div class="border-top d-md-flex justify-content-between align-items-center px-6 py-6">
+             <nav class="mt-2 mt-md-0">
+                <ul class="pagination mb-0">
+                   <li class="page-item disabled"><a class="page-link" href="#!">Oldingi</a></li>
+                   <li class="page-item"><a class="page-link active" href="#!">1</a></li>
+                   <li class="page-item"><a class="page-link" href="#!">2</a></li>
+                   <li class="page-item"><a class="page-link" href="#!">3</a></li>
+                   <li class="page-item"><a class="page-link" href="#!">Keyingisi</a></li>
+                </ul>
+             </nav>
+          </div>
+       </div>
+    </div>
+ </div>
+ {% endblock %}
+    <!-- <table>
+        <thead>
+            <tr>
+                <th>Date Created</th>
+                <th>Professor</th>
+                <th>Department</th>
+                <th>Category</th>
+                <th>Requirements</th>
+                <th>Status</th>
+                <th>Download Zip</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for submission in submissions %}
+                <tr>
+                    <td>{{ submission.created_at }}</td>
+                    <td>{{ submission.professor }}</td> 
+                    <td>{{ submission.professor.regular_user_profile.department }}</td> 
+                    <td>{{ submission.work_category }}</td>
+                    <td>
+                        <ul>
+                            {% for requirement in submission.requirements.all %}
+                                <li>{{ requirement }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>{{ submission.get_status_display }}</td>
+                    <td>
+                        <a href="{% url 'users:download_submission' pk=submission.pk %}">Download</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html> -->

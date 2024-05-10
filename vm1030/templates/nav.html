@@ -1,0 +1,96 @@
+{% load static %}
+<nav class="navbar-vertical-nav d-none d-xl-block">
+    <div class="navbar-vertical">
+        <div class="px-4 py-5">
+            <a href="#" class="navbar-brand">
+                <img src="{% static 'img/library.png' %}" alt="" width="50px" height="50px" />
+            </a>
+        </div>
+        <div class="navbar-vertical-content flex-grow-1" data-simplebar="">
+            <ul class="navbar-nav flex-column" id="sideNavbar">
+                {% if user.is_superuser %}
+                    <li class="nav-item">
+                        <a class="nav-link " href="{% url 'users:admin_dashboard' %}">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon"><i class="bi bi-house"></i></span>
+                                <span class="nav-link-text">Dashboard</span>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link " href="{% url 'users:approved_submissions' %}">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon"><i class="bi bi-table"></i></span>
+                                <span class="nav-link-text">Hujjatlar jadvali</span>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'users:all_submissions_list' %}">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon"><i
+                                        class="bi bi-people"></i></span>
+                                <span class="nav-link-text">O'qituvchilar</span>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link " href="{% url 'users:create_department' %}">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon"><i class="bi bi-plus-circle"></i></span>
+                                <span class="nav-link-text">Kafedra qoshish</span>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link " href="{% url 'users:create_work_category' %}">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon"><i class="bi bi-plus-circle"></i></span>
+                                <span class="nav-link-text">Talablar qoshish</span>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link " href="{% url 'users:work_submission' %}">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon"><i class="bi bi-plus-circle"></i></span>
+                                <span class="nav-link-text">Ariza topshirish</span>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link " href="{% url 'users:my_submissions_list' %}">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon"><i class="bi bi-table"></i></span>
+                                <span class="nav-link-text">Mening Arizalarm</span>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link " href="{% url 'users:list_processing_submissions' %}">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon"><i class="bi bi-plus-circle"></i></span>
+                                <span class="nav-link-text">Kafedra ga tushgan arizalar</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'users:create_department_user' %}">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon"><i
+                                        class="bi bi-people"></i></span>
+                                <span class="nav-link-text">O'qituvchi qo'shish</span>
+                            </div>
+                        </a>
+                    </li>
+                {% endif %}
+        </div>
+    </div>
+</nav>
